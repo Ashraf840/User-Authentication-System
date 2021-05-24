@@ -1,0 +1,121 @@
+****************************************** Project Procedures of Creating a User Authentication System ******************************************
+
+
+>>>>>>>>> Setup the Django Project using Virtual Environment
+
+1. Create a python virtual environment in the project directory
+	python3.9 -m venv env
+
+2. Activate the python environment & check the python version (in this project, the python version is 3.9.4)
+	source env/bin/activate
+	python3 -V
+
+3. If necessary, update pip after activating the virtual environment
+	python3.9 -m pip install --upgrade pip
+
+4. Install "django" package inside this python venv
+	pip install django
+
+5. Check the pyhon packages using pip, and then create a "requirements.txt" file inside the working directory
+	pip list
+	pip freeze > requirements.txt
+
+6. Create a django project
+	django-admin startproject custom_user
+
+7. Move into the project's working directory. Create a app called "u_account_app" inside the working directory
+	cd custom_user
+	python3 manage.py startapp u_account_app
+
+
+>>>>>>>>> Configure Django Project with Pycharm
+
+8. Open this project's directory inside Pycharm & configure the python interpreter.
+   Go to File > Settings > Project: User Authentication System > Python Interpreter > Click "Wrench" btn > Add... > Existing Environment > Select the python venv for the project
+
+9. COnfigure the "Run/Debug Configuration" which is at the top right corner of IDE.
+   Add new run configuration > Select "Python".
+	Name: Django
+	Script Path: /home/tanjim/Documents/Python/Django/Sample Project/Python Ver 3.9.5/projects/User Authentication System (Project-3)/custom_user/manage.py
+	Parameters: runserver 8080
+   Now click the "run" btn to start the server. And check that from the browser.
+
+
+>>>>>>>>> Configure the Django Administration
+
+10. Add a dbsqlite using "migrate" cmd, then migrate all the dhango tables into the db
+	python3 manage.py migrate
+
+11. Create a superuser for the system administration.
+	python3 manage.py createsuperuser
+Username: admin
+Email addres: shi********
+password: **********
+
+12. Create Abstract Base User model ("MyUser") inside "models.py" of the "u_account_app".
+
+12.1 Create a User model manager ("MyUserManager") inside the "models.py" of the "u_account_app".
+
+12.2 Add the user authentication app ("u_account_app") in the INSTALLED_APPS[] section of the projects "settings.py" file
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+     ********************,
+
+    'u_account_app.apps.UAccountAppConfig',
+]
+
+13. Error: "django.db.migrations.exceptions.InconsistentMigrationHistory...." occurs because before creating custom user model, I've executed "makemigrations" & "migrate" cmds.
+    So, followed the solution-4 the ref: https://izziswift.com/django-db-migrations-exceptions-inconsistentmigrationhistory/
+    Delete the _pycache_ and the 0001_initial files from the "migrations" directory of that specific app.
+    Delete the db.sqlite3 from the root directory (be careful all your data will go away).
+    on the terminal run:
+	python manage.py makemigrations
+	python manage.py migrate
+
+14. Then, execute the following cmds
+	python3 manage.py makemigrations
+	python3 manage.py migrate
+
+15. Now, create a superuser uisng the custom user model
+	python3 manage.py createsuperuser
+Email Address: shi************
+Company Name: My Company                   
+Company Phone: +88019********
+Password: ***********
+Password (again): ***********
+
+16. Run the server on and check.
+    NB: If having issue loggin into the administration page, delete the migrations file ("0001_initial.py"), delete the dbsqlite3 file ("db.sqlite3"),
+	then, execute the step-15 again.
+
+>>>>>>>>> Configure Git & Export to GitHub
+
+17. Create a repo named "User-Authentication-System" in GitHub.
+
+17.1 Initialize git in the project directory & then check the status of files in git, also check the git branch name while checking the "git status"
+	cd /home/tanjim/Documents/Python/Django/"Sample Project"/"Python Ver 3.9.5"/projects/"User Authentication System (Project-3)"
+	git init
+	got status
+
+17.2 Add the name of remote as "origin" & add the URL of the remote repository, which will connect the local git repo with the remote GitHub repo ("User-Authentication-System") using this url.
+	git remote add origin https://github.com/Ashraf840/User-Authentication-System.git
+
+17.3 Create a ".gitignore" file in the working directory to avoid sensitive data-file to be exported in GitHub
+	touch .gitignore
+	gedit .gitignore
+     Copy & paste everything from the ".gitignore" file from the GitHub
+
+17.3 Add the files to track changes in git
+	git add .		# to add all the files (use ".gitignore" before using this cmd if there is any sensitive data)
+
+
+
+
+
+
+
+
+
+
+

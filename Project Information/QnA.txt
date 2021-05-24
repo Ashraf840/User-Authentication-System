@@ -1,0 +1,4 @@
+************************** Questions & Answers (Regrading this "User Authentication System") **************************
+
+
+1. What is "AbstractBaseUser", "AbstractUser, "BaseUserManager"?
