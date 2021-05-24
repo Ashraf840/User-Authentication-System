@@ -109,6 +109,12 @@ Password (again): ***********
 17.3 Add the files to track changes in git
 	git add .		# to add all the files (use ".gitignore" before using this cmd if there is any sensitive data)
 
+17.4 Make the commit of this changes inside git
+	git commit -m "Initial Commit: Push the Initial Project to the 'main' branch"
+
+17.5 Forced push this initial commit to the "main" branch of the GitHub repository, (later, all the pushes will only be made to a GitHub branch directly everytime)
+	git push -f origin main
+
 
 
 
