@@ -114,7 +114,34 @@ Password (again): ***********
 
 17.5 Forced push this initial commit to the "main" branch of the GitHub repository, (later, all the pushes will only be made to a GitHub branch directly everytime)
 	git push -f origin main
+Username for 'https://github.com': Ashraf840
+Password for 'https://Ashraf840@github.com': ************
 
+
+17.6 Create & switch to a new branch "dev"
+	git checkout -b dev
+	git add .
+	git commit -m "Create a new branch 'dev'"
+	git push -u origin dev
+Username for 'https://github.com': Ashraf840
+Password for 'https://Ashraf840@github.com': ************
+
+18. Hide the sensitive data from the project in GitHub
+    Create ".env" file in the working directory
+	Add the SECRET_KEY in this file
+    Create ".env.example" file in the working directory
+	Make a descritive example for the SECRET_KEY in this file
+    Install a python package "python-decouple"
+	 pip install python-decouple
+    Update the requirement list inside "requirements.txt" file
+	pip freeze > requirements.txt
+    Inside the "settings.py" file
+	from decouple import config
+    Now, use config() function to hide sensitive data to be exposed in public
+    Lastly, follow the step-17.3 to step-17.6 from "Configure Git & Export to GitHub" section
+	git add .
+	git commit -m "Hide the sensitive data using '.env' file"
+	git push -u origin dev
 
 
 
