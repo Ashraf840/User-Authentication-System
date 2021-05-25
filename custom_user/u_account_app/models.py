@@ -47,7 +47,7 @@ class MyUser(AbstractBaseUser):
     # Registration
     date_joined = models.DateTimeField(verbose_name="Date Join", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="Last Login", auto_now=True)
-    # Permission
+    # Permission /// will be appeared as a radio button, while creating a new user in the Django Admin Site
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
