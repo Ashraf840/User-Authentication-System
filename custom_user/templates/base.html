@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% include 'includes/header.html' %}
+
+    <title>{% block title %} {% endblock %}: User Authentication System</title>
+
+
+    {% block stylesheet %} {% endblock %}
+
+</head>
+<body>
+    <div class="container mt-5 mb-4">
+        {% block content %} {% endblock %}
+    </div>
+
+{% include 'includes/footer.html' %}

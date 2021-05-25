@@ -1,6 +1,10 @@
 ****************************************** Project Procedures of Creating a User Authentication System ******************************************
 
 
+Youtube Video Series Ref:  https://www.youtube.com/watch?v=Y-JNrQli2C4&list=PL-lwbotZANgSbziGUCN376PGwsEKUtzeU&index=3
+
+
+
 >>>>>>>>> Setup the Django Project using Virtual Environment
 
 1. Create a python virtual environment in the project directory
@@ -132,7 +136,9 @@ Password for 'https://Ashraf840@github.com': ************
 >>>>>>>>> Hide Sensitive data using ".env" file
 
 18. Hide the sensitive data from the project in GitHub
-Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+django+using+.env&docid=608040929674875935&mid=66B6F93379A78386397E66B6F93379A78386397E&view=detail&FORM=VIRE
+
+Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+django+using+.env&docid=608040929674875935&mid=66B6F93379A78386397E66B6F93379A78386397E&view=detail&FORM=VIRE
+
     Create ".env" file in the working directory
 	Add the SECRET_KEY in this file
     Create ".env.example" file in the working directory
@@ -143,7 +149,7 @@ Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+django+using
 	pip freeze > requirements.txt
     Inside the "settings.py" file
 	from decouple import config
-    Now, use config() function to hide sensitive data to be exposed in public
+    Now, use config() function inside the "settings.py" to hide the sensitive data to be exposed in public
     Lastly, follow the step-17.3 to step-17.6 from "Configure Git & Export to GitHub" section
 	git add .
 	git commit -m "Hide the sensitive data using '.env' file"
@@ -164,6 +170,51 @@ Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+django+using
 20. Export the file to the GitHub
 	git add .
 	git commit -m "Custom design the user admin panel"
+	git push -u origin dev
+
+>>>>>>>>> Design a form to register users (using django-forms) -- Configure Frontend
+
+
+21. Create "form.py" file in the app ("u_account_app")
+    Generate the form from the custom user model ("MyUser")
+
+22. Create a directory ("templates") inside the project's working directory.
+    Add the "templates" directory inside the project's "settings.py" file's "TEMPLATES[]" section.
+    Create "register.html" file inside "templates/u_account_app" directory
+    Create "index.html" file inside "templates/home_app" directory
+
+23. Create another app ("home_app") inside the project. This app is created to primarily view the home page of the project
+	python3 manage.py startapp home_app
+    Add this app to the "INSTALLED_APPS[]" section.
+	INSTALLED_APPS[
+	   **********,
+	   'home_app.apps.HomeAppConfig',
+	]
+    Create "urls.py" file in the app ("home_app"). Route the home page ("templates/home_app/index.html") in the "urlpatterns = []" of it.
+    Create url for the "home_app" inside the project's "urls.py" file.
+	urlpatterns = [
+	    path('admin/', admin.site.urls),
+	    path('', include('home_app.urls')),
+	    path('user_account/', include('u_account_app.urls')),
+	]
+    Add the function to display home page inside the "views.py" file of "home_app"
+
+24. Create "urls.py" file in the app ("u_account_app"). Route the register page ("templates/u_account_app/register.html") in the "urlpatterns = []" of it.
+
+25. Create "templates/base.html" file for templating the html files.
+    Create "includes" directory to create header, footer templating files.
+
+26. Refactor the code inside the "u_account_app/register.html", "home_app/index.html" files for proper templating.
+
+27. Create "static" directory inside the project's working directory where the "manage.py" resides.
+    Add this directory ("static") inside the project's "settings.py" file.
+	STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+    Create "static/css/home_app/index.css", "static/css/u_account_app/register.css" files for styling the html files accordingly.
+
+
+28. Add all the files to git, commit those changes & lastly add them to the remote GitHub repo's ("User-Authentication-System") branch "dev"
+	git add .
+	git commit -m "Configure Frontend: User Reg Form & Home page"
 	git push -u origin dev
 
 

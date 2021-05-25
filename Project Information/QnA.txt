@@ -2,3 +2,5 @@
 
 
 1. What is "AbstractBaseUser", "AbstractUser, "BaseUserManager"?
+
+2. Why "namespace" is used while setting up urls in "urls.py" file?
