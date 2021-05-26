@@ -217,8 +217,12 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
 	git commit -m "Configure Frontend: User Reg Form & Home page"
 	git push -u origin dev
 
+29. Use namespace inside the project's "urls.py" file. Enlisted all the app's urls using app_name. Calling those pages using the following syntax
+	return redirect("app_name:name")
 
+30. At this stage, after creating a user account, the user is redirected to the home page. But the user need to be redirected to the login page.
 
+31. Execute the step-28 again in order to upload the files to GitHub.
 
 
 
