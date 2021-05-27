@@ -261,4 +261,11 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
 	git commit -m "Add 'username' field to Custom User Model"
 	git push -u origin dev
 
+41. Use decorator ("stop_authenticated_user") from "home_app" to control unnecessary logout hit from the browser.
+    While importing decorator/method "stop_authenticated_user" inside the views.py file's "u_account_app",
+    it might show an error warning, but it's finely functional,
 
+42. Execute the step-40 to export the files to GitHub repo.
+    git add .
+	git commit -m "Add DECORATOR to control unnecessary logout hit from the browser"
+	git push -u origin dev

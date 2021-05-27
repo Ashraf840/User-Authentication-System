@@ -3,9 +3,12 @@ from .forms import UserRegForm, UserLoginForm
 from django.contrib.auth import authenticate, login, logout
 import pdb
 from .decorators import stop_authenticated_user
+from home_app.decorators import stop_unauthenticated_user   # It works inspite of error-warning
 
 
 # Create your views here.
+
+
 @stop_authenticated_user
 def userRegister(request):
     context = {
@@ -54,6 +57,7 @@ def userLogin(request):
     return render(request, 'u_account_app/login.html', context)
 
 
+@stop_unauthenticated_user
 def userLogout(request):
     logout(request)
     return redirect('user_account:userLogin')
