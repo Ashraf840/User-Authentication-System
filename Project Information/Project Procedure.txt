@@ -247,5 +247,18 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
 
 37. Execute the step-31 again in order to upload the files to GitHub.
 	git add .
-	git commit -m "Login functionality using user email, including css styling & Control authorize, unauthorized access to certain pages "
+	git commit -m "Login functionality using user email, including css styling & Control authorize, unauthorized access to certain pages"
 	git push -u origin dev
+
+38. Create "base.css" to able to commonly add css styling to the whole project.
+
+38. Add google fonts in the change the font-family of the navbar's text logo.
+
+39. Add username field in the "models.py" file's "MyUser" class. And show username instead of email in the front-end while one is logged in.
+
+40. Execute the step-37 to export the files to GitHub repo.
+    git add .
+	git commit -m "Add 'username' field to Custom User Model"
+	git push -u origin dev
+
+

@@ -1,9 +1,9 @@
 <!doctype html>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'homepage:home' %}">
-      User Authentication System <br>
-      <small>Custom User Model</small>
+    <a class="navbar-brand" id="navbar_brand" href="{% url 'homepage:home' %}">
+      <span style="font-family: 'Dancing Script', cursive; font-size: 32px">User Authentication System</span> <br>
+      <small style="font-family: 'Dancing Script', cursive; font-size: 16px">Custom User Model</small>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -33,12 +33,12 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-<!--      <form class="d-flex">-->
-<!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--        <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--      </form>-->
+      {% if not user.is_authenticated %}
+        <span>(The <b class="text-danger fw-bold">secret page</b> will be shown to a logged in user)</span>
+      {% endif %}
+
       {% if user.is_authenticated %}
-        <span>Logged in as <b>{{ user.email }}</b> </span>
+        <span>Logged in as <b>{{ user.username }}</b> </span>
         <a class="nav-link" href="{% url 'user_account:userLogout' %}">Logout</a>
       {% else %}
         <a class="nav-link" href="{% url 'user_account:userLogin' %}">Login</a>
