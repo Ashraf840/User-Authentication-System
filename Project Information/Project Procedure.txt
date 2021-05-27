@@ -142,7 +142,7 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
     Create ".env" file in the working directory
 	Add the SECRET_KEY in this file
     Create ".env.example" file in the working directory
-	Make a descritive example for the SECRET_KEY in this file
+	Make a descriptive example for the SECRET_KEY in this file
     Install a python package "python-decouple"
 	 pip install python-decouple
     Update the requirement list inside "requirements.txt" file
@@ -172,10 +172,10 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
 	git commit -m "Custom design the user admin panel"
 	git push -u origin dev
 
->>>>>>>>> Design a form to register users (using django-forms) -- Configure Frontend
+>>>>>>>>> Design a form to register users & later login those users (using django-forms) -- Configure Frontend
 
 
-21. Create "form.py" file in the app ("u_account_app")
+21. Create "form.py" file in the app ("u_account_app"). Basic css styling has been done to the form fields inside the "forms.py" file.
     Generate the form from the custom user model ("MyUser")
 
 22. Create a directory ("templates") inside the project's working directory.
@@ -223,12 +223,29 @@ Article Ref: https://www.bing.com/videos/search?q=how+to+hide+secret_key+in+djan
 30. At this stage, after creating a user account, the user is redirected to the home page. But the user need to be redirected to the login page.
 
 31. Execute the step-28 again in order to upload the files to GitHub.
+	git add .
+	git commit -m "Register user into the system & redirect to the home page"
+	git push -u origin dev
 
+32. Create another class ("UserLoginForm") to generate user login form inside the "forms.py" file inside the "u_account_app"
+    Added a function called "clean(self)" inside the form class ("UserLoginForm(forms.ModelForm)").
 
+32.1 Authentication error is raised inside the form class "UserLoginForm"
 
+33. Import the "UserLoginForm" into the "views.py" file.
+    Import the authentication function (authenticate) inside the "views.py" file.
+    Also import login, logout functions in the same file.
+    Create e function "userLogin()" inside the "views.py" file.
 
+34. Create a bootstrap nav-bar for the front-end inside the "base.html".
 
+35. Adding DECORATORS so that if any user is in a logged in state, they cannot go to some certain pages (which are only allowed to view, in logged out state),
+    even if by typing exact urls in the browser, they'll be redirected to predefined pages.
+    "decorators.py" file is added inside the "u_account_app" directory.
 
+36. "decorators.py" file is added inside the "home_app" directory to prohibit unauthorized accesses (even by typing urls in the browser).
 
-
-
+37. Execute the step-31 again in order to upload the files to GitHub.
+	git add .
+	git commit -m "Login functionality using user email, including css styling & Control authorize, unauthorized access to certain pages "
+	git push -u origin dev
