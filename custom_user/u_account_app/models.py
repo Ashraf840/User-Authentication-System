@@ -6,10 +6,12 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # This model will consist of "create_user" & "create_superuser" functions
 class MyUserManager(BaseUserManager):
     """ User Model Manager """
-    def create_user(self, email, company_name, phone, password=None):
+    def create_user(self, username, email, company_name, phone, password=None):
         # Check basic validation for the required fields inside "MyUser" class
         if not email:
             raise ValueError("Email is required!")
+        if not username:
+            raise ValueError("Username is required!")
         if not company_name:
             raise ValueError("Company name is required!")
         if not phone:
@@ -17,6 +19,7 @@ class MyUserManager(BaseUserManager):
 
         # Create the user in the model, then set the password for that user and saving the info in the model
         user = self.model(
+            username=username,
             email=self.normalize_email(email),
             company_name=company_name,
             phone=phone
@@ -25,8 +28,9 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, company_name, phone, password=None):
+    def create_superuser(self, username, email, company_name, phone, password=None):
         user = self.create_user(
+            username=username,
             email=email,
             company_name=company_name,
             phone=phone,
@@ -41,6 +45,7 @@ class MyUserManager(BaseUserManager):
 
 class MyUser(AbstractBaseUser):
     # User Info
+    username = models.CharField(verbose_name="Username", max_length=60, unique=True, null=True)
     email = models.EmailField(verbose_name="Email Address", max_length=60, unique=True)
     company_name = models.CharField(verbose_name="Company Name", max_length=200, unique=True)
     phone = models.CharField(verbose_name="Company Phone", max_length=20)
@@ -57,7 +62,7 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     # When creating user account, the following fields must need to fill
-    REQUIRED_FIELDS = ['company_name', 'phone']
+    REQUIRED_FIELDS = ['username', 'company_name', 'phone']
 
     # Define the base user model manager
     objects = MyUserManager()

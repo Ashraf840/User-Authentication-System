@@ -4,10 +4,10 @@ from .models import MyUser
 
 # Register your models here.
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ['email', 'company_name', 'phone', 'date_joined',
+    list_display = ['username', 'email', 'company_name', 'phone', 'date_joined',
                     'last_login', 'is_admin', 'is_staff', 'is_active', 'is_superuser']
-    list_display_links = ['email', 'company_name']
-    search_fields = ['email', 'company_name', 'phone']
+    list_display_links = ['username', 'email', 'company_name']
+    search_fields = ['username', 'email', 'company_name', 'phone']
     readonly_fields = ['date_joined', 'last_login']
     list_filter = ['last_login']
     list_per_page = 5

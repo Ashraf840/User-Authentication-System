@@ -7,11 +7,13 @@ from django.contrib.auth import authenticate
 class UserRegForm(UserCreationForm):
     class Meta():
         model = MyUser
-        fields = ['email', 'company_name', 'phone', 'password1', 'password2']
+        fields = ['email', 'username', 'company_name', 'phone', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super(UserRegForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['style'] = 'width: 550px; height: 35px;'
+        self.fields['username'].widget.attrs['style'] = 'width: 550px; height: 35px;'
+        # self.fields['username'].widget.attrs['value'] = 'Default Value'
         self.fields['company_name'].widget.attrs['style'] = 'width: 550px; height: 35px;'
         self.fields['phone'].widget.attrs['style'] = 'width: 550px; height: 35px;'
         self.fields['password1'].widget.attrs['style'] = 'width: 550px; height: 35px;'

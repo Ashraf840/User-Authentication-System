@@ -3,7 +3,12 @@
     <footer class="footer bg-light" style="position: absolute; bottom: 30px;">
       <div class="container">
         {% if user.is_authenticated %}
-          <span>Logged in as <b>{{ user.email }}</b> </span>
+          <span>
+              Logged in as <b>{{ user.username }}</b>
+              {% if user.is_superuser %}
+                <span> (<b class="text-danger">Superuser</b>) </span>
+              {% endif %}
+          </span>
         {% endif %}
       </div>
     </footer>
