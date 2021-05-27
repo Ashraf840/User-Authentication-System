@@ -4,3 +4,7 @@
 1. What is "AbstractBaseUser", "AbstractUser, "BaseUserManager"?
 
 2. Why "namespace" is used while setting up urls in "urls.py" file?
+
+3. What is "baseForm.py"?
+
+4. Why do I need to use "def clean(self)" inside the "forms.py" file?
