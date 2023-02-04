@@ -46,7 +46,8 @@ class LoginView(APIView):
 
         response.set_cookie(key='jwt', value=token, httponly=True)  # Enabling the HTTPOnly attribute prevents malicious scripts from stealing the user's session identity. Prohibit the frontend to access the token.
         response.data = {
-            'jwt': token
+            'jwt': token,
+            'message': 'Success'
         }
         return response
 
@@ -73,3 +74,17 @@ class UserView(APIView):
             'token': token,
             'user': serializer.data     # pass serialized object of user-model-instance, otherwise this API throws error if passed model-instance directly as response
         })
+
+
+class LogoutView(APIView):
+    """
+    Logout API in order to logout user by removing the cookie
+    """
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'Success'
+        }
+        return response
+
