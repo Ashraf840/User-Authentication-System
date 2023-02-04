@@ -14,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True,},
         }
 
-
     def create(self, validated_data):
         """
         This method sits between the view & the user-model-creation

@@ -49,3 +49,27 @@ class LoginView(APIView):
             'jwt': token
         }
         return response
+
+
+
+class UserView(APIView):
+    """
+    User detail view API. Required authentication.
+    """
+    def get(self, request):
+        token = request.COOKIES.get('jwt')   # Get the jwt token from cookies
+        # check: token is not set/found
+        if not token:
+            raise AuthenticationFailed("Unauthenticated")
+        #decode the JWT token in order to get the payload
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed("Unauthenticated")
+        # fetch the user from db using the payload's key-value pair
+        user = User.objects.get(id=payload['id'])
+        serializer = UserSerializer(user)   # pass the user instance to get JSON serializable object
+        return Response({
+            'token': token,
+            'user': serializer.data     # pass serialized object of user-model-instance, otherwise this API throws error if passed model-instance directly as response
+        })
