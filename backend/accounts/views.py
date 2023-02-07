@@ -7,6 +7,9 @@ from rest_framework.views import APIView
 
 
 class ProfileView(APIView):
+    """
+    User-detail-api based on request-object
+    """
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -14,6 +17,6 @@ class ProfileView(APIView):
         content = {
             'user': str(request.user),  # `django.contrib.auth.User` instance.
             'email': str(request.user.email),
-            'auth': str(request.auth),  # None
+            'auth': str(request.auth),  # None. But why?
         }
         return Response(content)
