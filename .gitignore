@@ -1,0 +1,8 @@
+env/
+env_prod/
+.vscode
+.idea
+__pycache__/
+/data
+.env
+.venv
