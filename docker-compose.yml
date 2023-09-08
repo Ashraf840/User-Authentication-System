@@ -8,3 +8,22 @@ services:
       - 8001:8080
     volumes:
       - ./app:/app
+    environment:
+      - SECRET_KEY=devsecretkey
+      - DEBUG=1
+      - DB_HOST=db
+      - DB_NAME=DjJwtAuth
+      - DB_USER=DjJwtAuthAdmin
+      - DB_PASS=dcba4321
+      - DB_PORT=5432
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:13-alpine
+    ports:
+      - 8002:5432
+    environment:
+      - POSTGRES_DB=DjJwtAuth
+      - POSTGRES_USER=DjJwtAuthAdmin
+      - POSTGRES_PASSWORD=dcba4321
