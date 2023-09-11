@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 # from rest_framework.renderers import JSONRenderer     # Currently not using, since a custom renderer_class will be build later
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer
 from django.contrib.auth import authenticate
 from .renderers import JsonRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -54,3 +54,14 @@ class UserProfile(APIView):
     def get(self, request, format=None):
         serializer = UserProfileSerializer(request.user)   # Provide 'request.user' instead of 'request.data'
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserChangePassword(APIView):
+    renderer_classes = [JsonRenderer]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, format=None):
+        serializer = UserChangePasswordSerializer(data=request.data, context={'user':request.user})
+        if serializer.is_valid(raise_exception=True):
+            return Response({'Message': 'Password changed successfully'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
