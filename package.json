@@ -1,8 +1,8 @@
 {
   "name": "nestjs-mock-jwt",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "## Step 1 Install NestJS(which is node application) CLI into the local machine",
+  "author": "Tanjim Ashraf",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -73,5 +73,24 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashraf840/NestJS-Jwt-Auth-Mock_API.git"
+  },
+  "keywords": [
+    "NestJS",
+    "JWT",
+    "Auth",
+    "Mock",
+    "API"
+  ],
+  "bugs": {
+    "url": "https://github.com/Ashraf840/NestJS-Jwt-Auth-Mock_API/issues"
+  },
+  "homepage": "https://github.com/Ashraf840/NestJS-Jwt-Auth-Mock_API#readme"
 }
