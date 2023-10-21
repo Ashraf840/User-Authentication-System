@@ -1,0 +1,13 @@
+<div class="container p-5">
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0" *ngFor="let fav of favMovies">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ fav?.name }}</h5>
+                    <p class="card-text">Genre | {{ fav?.genre }}</p>
+                    <a href="#" class="btn btn-primary">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
