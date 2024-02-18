@@ -1,0 +1,6 @@
+env/
+.env
+Resource Links.txt
+**/__pycache__/
+db.sqlite3
+**/migrations/[0-9]*_*.py
