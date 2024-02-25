@@ -51,7 +51,6 @@ class RequetNewOTPSerializer(serializers.Serializer):
     def validate(self, attrs):
         email = attrs.get('email', '')
         # Check if the user exists in the "User" table
-        # user=User.objects.filter(email=email).exists()  # returns boolean
         user=User.objects.filter(email=email)
         print("User:", user)
         if len(user) < 1:
