@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
-from .serializers import UserRegisterSerializer, UserLoginSerializer, PasswordResetRequestSerializer, SetNewPasswordSerializer, LogoutUserSerializer
+from .serializers import UserRegisterSerializer, RequetNewOTPSerializer, UserLoginSerializer, PasswordResetRequestSerializer, SetNewPasswordSerializer, LogoutUserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from .utils import send_code_to_user
@@ -45,6 +45,19 @@ class RegisterUserAPI(GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RequestNewOTPAPI(GenericAPIView):
+    serializer_class=RequetNewOTPSerializer
+
+    def post(self, request):
+        serializer=self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            result=send_code_to_user(email=serializer.data.get('email'), repeat_otp_code=True)
+            if result:
+                return Response(data={"message":"Failed to send OTP code"}, status=status.HTTP_200_OK)
+            return Response(data={"message":"A new OTP code is sent to your email"}, status=status.HTTP_200_OK)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class VerifyUserEmailAPI(GenericAPIView):
     def post(self, request):
         otp_code=request.data.get('otp', None)    # Default value: None
@@ -59,6 +72,7 @@ class VerifyUserEmailAPI(GenericAPIView):
                     'message':'Account email verified successfully'
                 }, status=status.HTTP_200_OK)
             else:
+                # TODO: Add a new api endpoint which generate OTP code for email verfication for the user (get a track for requesting (max 3, then the account will be banned) to mail-verfication after failing to verify email after registering into the system)
                 return Response({
                     'message':'Invalid code, account is already verified'
                 }, status=status.HTTP_204_NO_CONTENT)

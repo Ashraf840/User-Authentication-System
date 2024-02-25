@@ -45,6 +45,23 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class RequetNewOTPSerializer(serializers.Serializer):
+    email=serializers.EmailField(max_length=255, min_length=6)
+
+    def validate(self, attrs):
+        email = attrs.get('email', '')
+        # Check if the user exists in the "User" table
+        # user=User.objects.filter(email=email).exists()  # returns boolean
+        user=User.objects.filter(email=email)
+        print("User:", user)
+        if len(user) < 1:
+            raise serializers.ValidationError("User doesn't exist")
+        # Check if the user account is already verified or not. If verified then it'll raise a validation error. Becuase the purpose for asking for a new OTP is to verify the user account into the system.
+        if user[0].is_verified:
+            raise serializers.ValidationError("User account is already verified")
+        return super().validate(attrs)
+
+
 class UserLoginSerializer(serializers.ModelSerializer):
     # The "read_only=True" param ensures that the field(s) will be used while serializing the representation, but not used while creating or updating an instance during deserializing
     email=serializers.EmailField(max_length=255, min_length=6)

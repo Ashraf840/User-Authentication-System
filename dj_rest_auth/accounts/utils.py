@@ -11,19 +11,28 @@ def generateOTP():
     return otp
 
 
-def send_code_to_user(email):
+def send_code_to_user(email, repeat_otp_code=False):
     subject="One time passcode for email verification"
     otp_code=generateOTP()
     user=User.objects.get(email=email)
-    current_site="myAuth.com"
+    current_site="myAuth.com"   # Change according the domain name
     email_body=f"Hi {user.first_name} thanks for signing up on {current_site}. Please verify your email with the \n one time passcode {otp_code}"
     from_email=settings.DEFAULT_FROM_EMAIL
-
-    # Set OTP for the user in db
-    OneTimePassword.objects.create(user=user, code=otp_code)
-
-    d_email=EmailMessage(subject=subject, body=email_body, from_email=from_email, to=[email])
-    d_email.send(fail_silently=True)
+    if repeat_otp_code:
+        if OneTimePassword.objects.filter(user=user).exists():
+            otp_code_obj=OneTimePassword.objects.get(user=user)
+            otp_code_obj.code=otp_code
+            otp_code_obj.save()
+            d_email=EmailMessage(subject=subject, body=email_body, from_email=from_email, to=[email])
+            d_email.send(fail_silently=True)
+            return 0
+        else:
+            return 1
+    else:
+        # Set OTP for the user in db
+        OneTimePassword.objects.create(user=user, code=otp_code)
+        d_email=EmailMessage(subject=subject, body=email_body, from_email=from_email, to=[email])
+        d_email.send(fail_silently=True)
 
 
 def send_normal_email(data):

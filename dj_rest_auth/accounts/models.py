@@ -38,6 +38,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class OneTimePassword(models.Model):
+    """
+    This table can only have a single record against every user record. \n
+    Multiple record of the same user is prohibited since the "user" field of this table has a one-to-one relationship with the "User" mode.
+    """
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     code=models.CharField(max_length=6, unique=True)
 
