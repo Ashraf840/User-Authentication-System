@@ -160,7 +160,7 @@ class LogoutUserSerializer(serializers.Serializer):
     refresh_token=serializers.CharField()
 
     default_error_message={
-        'bad_token':{"Token is invalid or has expired"}
+        'bad_token':{"Token is invalid or expired"}
     }
 
     def validate(self, attrs):

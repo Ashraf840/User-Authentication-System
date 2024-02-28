@@ -10,21 +10,39 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .models import User
+from rest_framework.reverse import reverse
 
 
+# # Dynamically generated API doc
 class APIEndpointDoc(GenericAPIView):
     def get(self, request):
         return Response({
-            'User Registration':'api/v1/auth/register/',
-            'Email Verification':'api/v1/auth/verify-email/',
-            'User Login':'api/v1/auth/login/',
-            'User Profile':'api/v1/auth/profile/',
-            'Password Reset Request':'api/v1/auth/password-reset/',
-            'Password Reset Confirm':'api/v1/auth/password-reset-confirm/<user_id>/<pass-reset-token>/',
-            'Set New Password':'api/v1/auth/set-new-password/',
-            'User Logout':'api/v1/auth/logout/',
-            'Refresh Token':'api/v1/auth/refresh-token/',
+            'User Registration':reverse('RegisterUserAPI', request=request),
+            'Email Verification':reverse('VerifyUserEmailAPI', request=request),
+            'User Login':reverse('LoginUserAPI', request=request),
+            'User Profile':reverse('TestAuthenticationAPI', request=request),
+            'Password Reset Request':reverse('PasswordResetRequestAPI', request=request),
+            'Password Reset Confirm':reverse('PasswordResetRequestAPI', request=request),
+            'Set New Password':reverse('SetNewPasswordAPI', request=request),
+            'User Logout':reverse('LogoutUserAPI', request=request),
+            'Refresh Token':reverse('TokenRefreshView', request=request),
         }, status=status.HTTP_200_OK)
+
+
+# # Manually generated API doc
+# class APIEndpointDoc(GenericAPIView):
+#     def get(self, request):
+#         return Response({
+#             'User Registration':'api/v1/auth/register/',
+#             'Email Verification':'api/v1/auth/verify-email/',
+#             'User Login':'api/v1/auth/login/',
+#             'User Profile':'api/v1/auth/profile/',
+#             'Password Reset Request':'api/v1/auth/password-reset/',
+#             'Password Reset Confirm':'api/v1/auth/password-reset-confirm/<user_id>/<pass-reset-token>/',
+#             'Set New Password':'api/v1/auth/set-new-password/',
+#             'User Logout':'api/v1/auth/logout/',
+#             'Refresh Token':'api/v1/auth/refresh-token/',
+#         }, status=status.HTTP_200_OK)
 
 
 class RegisterUserAPI(GenericAPIView):
@@ -86,6 +104,7 @@ class VerifyUserEmailAPI(GenericAPIView):
 class LoginUserAPI(GenericAPIView):
     serializer_class=UserLoginSerializer
     def post(self, request):
+        print("request.data", request.data)
         serializer=self.serializer_class(data=request.data, context={'request':request})
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
