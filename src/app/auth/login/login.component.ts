@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginModel } from '../models/login-model';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   // Require an interface to hold the data sends back from the HTML template
   loginForm: LoginModel = {
@@ -23,9 +25,9 @@ export class LoginComponent implements OnInit {
     this.authService.userLogin(this.loginForm)
       .subscribe((data) => {
         if (data) {
-          alert("success");
+          this.router.navigate(["/"]);
         } else {
-          alert("failed");
+          console.log("failed");
         }
       })
   }
